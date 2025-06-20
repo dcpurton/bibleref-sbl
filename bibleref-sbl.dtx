@@ -1,0 +1,332 @@
+% \iffalse meta-comment
+%
+% Copyright (c) 2025 David Purton <dcpurton@marshwiggle.net>
+%
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3c of this license
+% or (at your option) any later version. The latest version of this
+% license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+%<*driver>
+\DocumentMetadata{lang=en-AU}
+\documentclass[a4paper]{ltxdoc}
+\usepackage{microtype}
+\usepackage{mlmodern}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{bibleref-sbl}
+
+\newcommand{\testbook}[1]{%
+  \item[\bibleverse{#1}] {\brsblfullname\bibleverse{#1}}
+}
+
+\AddToHook{env/macrocode/before}{%
+  \addvspace{\medskipamount}}
+
+\begin{document}
+\DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \title{The \pkg{bibleref-sbl} Package}
+% \author{David Purton\thanks{Email: \url{dcpurton@marshwiggle.net}}}
+% \date{2025/06/15 v1.0}
+%
+% \maketitle
+%
+% \begin{abstract}
+%   The \pkg{bibleref-sbl} package extends the \pkg{bibleref} package to
+%   support Bible book names as specified by the \emph{Society of Biblical
+%   Literature Handbook of Style}.\footnote{\emph{The SBL Handbook of Style:
+%   For Biblical Studies and Related Disciplines}, 2nd ed.\@ (Atlanta: SBL
+%   Press, 2014).} This includes adjustment of abbreviations, addition of
+%   extra Deuterocanonical books, an interface for acceptable options and
+%   correct index sorting.
+% \end{abstract}
+%
+% \section{Package Options}
+%
+% \section{Macros}
+%
+% \section{Supported Book Names}
+%
+% \subsection{Hebrew Bible/Old Testament}
+%
+% \begin{multicols}{2}
+%   \begin{description}[nosep,font=\normalfont,labelwidth=2cm]
+%     \testbook{Gen}
+%     \testbook{Exod}
+%     \testbook{Lev}
+%     \testbook{Num}
+%     \testbook{Deut}
+%     \testbook{Josh}
+%     \testbook{Judg}
+%     \testbook{Ruth}
+%     \testbook{ISam}
+%     \testbook{IKgdms}
+%     \testbook{IISam}
+%     \testbook{IIKgdms}
+%     \testbook{IKgs}
+%     \testbook{IIIKgdms}
+%     \testbook{IIKgs}
+%     \testbook{IVKgdms}
+%     \testbook{IChr}
+%     \testbook{IIChr}
+%     \testbook{Ezra}
+%     \testbook{Neh}
+%     \testbook{Esth}
+%     \testbook{Job}
+%     \testbook{Ps}
+%     \testbook{Pss}
+%     \testbook{Prov}
+%     \testbook{Eccl}
+%     \testbook{Song}
+%     \testbook{Isa}
+%     \testbook{Jer}
+%     \testbook{Lam}
+%     \testbook{Ezek}
+%     \testbook{Dan}
+%     \testbook{Hos}
+%     \testbook{Joel}
+%     \testbook{Amos}
+%     \testbook{Obad}
+%     \testbook{Jonah}
+%     \testbook{Mic}
+%     \testbook{Nah}
+%     \testbook{Hab}
+%     \testbook{Zeph}
+%     \testbook{Hag}
+%     \testbook{Zech}
+%     \testbook{Mal}
+%   \end{description}
+% \end{multicols}
+%
+% \subsection{Deuterocanonical Books}
+%
+% \begin{multicols}{2}
+%   \begin{description}[nosep,font=\normalfont,labelwidth=2cm,leftmargin=3cm]
+%     \testbook{Tob}
+%     \testbook{Jdt}
+%     \testbook{AddEsth}
+%     \testbook{Wis}
+%     \testbook{Sir}
+%     \testbook{Bar}
+%     \testbook{EpJer}
+%     \testbook{AddDan}
+%     \testbook{PrAzar}
+%     \testbook{SgThree}
+%     \testbook{Sus}
+%     \testbook{Bel}
+%     \testbook{IMacc}
+%     \testbook{IIMacc}
+%     \testbook{IEsd}
+%     \testbook{PrMan}
+%     \testbook{PsCLI}
+%     \testbook{IIIMacc}
+%     \testbook{IIEsd}
+%     \testbook{IVMacc}
+%   \end{description}
+%  \end{multicols}
+%
+% \subsection{New Testament}
+%
+% \begin{multicols}{2}
+%   \begin{description}[nosep,font=\normalfont,labelwidth=2cm]
+%     \testbook{Matt}
+%     \testbook{Mark}
+%     \testbook{Luke}
+%     \testbook{John}
+%     \testbook{Acts}
+%     \testbook{Rom}
+%     \testbook{ICor}
+%     \testbook{IICor}
+%     \testbook{Gal}
+%     \testbook{Eph}
+%     \testbook{Phil}
+%     \testbook{Col}
+%     \testbook{IThess}
+%     \testbook{IIThess}
+%     \testbook{ITim}
+%     \testbook{IITim}
+%     \testbook{Titus}
+%     \testbook{Phlm}
+%     \testbook{Heb}
+%     \testbook{Jas}
+%     \testbook{IPet}
+%     \testbook{IIPet}
+%     \testbook{IJohn}
+%     \testbook{IIJohn}
+%     \testbook{IIIJohn}
+%     \testbook{Jude}
+%     \testbook{Rev}
+%   \end{description}
+% \end{multicols}
+%
+% \section{Implementation}
+%
+% \setlength{\parindent}{0em}
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bibleref-sbl}
+  [2025/06/15 v1.0 Society of Biblical Literature Bibleref Style (DCP)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequirePackage{bibleref}
+%    \end{macrocode}
+%
+% Add missing SBL Bible books.
+%
+%    \begin{macrocode}
+\addbiblebook{IKingdoms}{\BRbooknumberstyle{1}\BRbookof Kingdoms}
+\addbiblebook{IIKingdoms}{\BRbooknumberstyle{2}\BRbookof Kingdoms}
+\addbiblebook{IIIKingdoms}{\BRbooknumberstyle{3}\BRbookof Kingdoms}
+\addbiblebook{IVKingdoms}{\BRbooknumberstyle{4}\BRbookof Kingdoms}
+\addbiblebook{Psalm}{Psalm}
+\addbiblebook{AdditionstoEsther}{Additions to Esther}
+\addbiblebook{EpistleofJeremiah}{Epistle of Jeremiah}
+\addbiblebook{AdditionstoDaniel}{Additions to Daniel}
+\addbiblebook{PrayerofAzariah}{Prayer of Azariah}
+\addbiblebook{SongoftheThreeYoungMen}{Song of the Three Young Men}
+\addbiblebook{Susanna}{Susanna}
+\addbiblebook{BelandtheDragon}{Bel and the Dragon}
+\addbiblebook{IEsdras}{\BRbooknumberstyle{1}\BRbookof Esdras}
+\addbiblebook{PrayerofManasseh}{Prayer of Manasseh}
+\addbiblebook{PsalmCLI}{Psalm 151}
+\addbiblebook{IIIMaccabees}{\BRbooknumberstyle{3}\BRbookof Maccabees}
+\addbiblebook{IIEsdras}{\BRbooknumberstyle{2}\BRbookof Esdras}
+\addbiblebook{IVMaccabees}{\BRbooknumberstyle{4}\BRbookof Maccabees}
+%    \end{macrocode}
+%
+% Add missing SBL abbreviations for use in \meta{book title} arguments.
+%
+%    \begin{macrocode}
+\def\br@IKgdms{\br@IKingdoms}
+\def\br@IIKgdms{\br@IIKingdoms}
+\def\br@IIIKgdms{\br@IIIKingdoms}
+\def\br@IVKgdms{\br@IVKingdoms}
+\def\br@Ps{\br@Psalm}
+\def\br@Pss{\br@Psalms}
+\def\br@Tob{\br@Tobit}
+\def\br@AddEsth{\br@AdditionstoEsther}
+\def\br@EpJer{\br@EpistleofJeremiah}
+\def\br@AddDan{\br@AdditionstoDaniel}
+\def\br@PrAzar{\br@PrayerofAzariah}
+\def\br@SgThree{\br@SongoftheThreeYoungMen}
+\def\br@Sus{\br@Susanna}
+\def\br@Bel{\br@BelandtheDragon}
+\def\br@IEsd{\br@IEsdras}
+\def\br@PrMan{\br@PrayerofManasseh}
+\def\br@PsCLI{\br@PsalmCLI}
+\def\br@IIIMacc{\br@IIIMaccabees}
+\def\br@IIEsd{\br@IIEsdras}
+\def\br@IVMacc{\br@IVMaccabees}
+\def\br@Phlm{\br@Philemon}
+%    \end{macrocode}
+%
+% \begin{macro}{\brsblfullname}
+%
+% Define new \cs{brsblfullname} macro which adjusts \cs{brfullname}
+% book names to bring them into line with SBL requirements.
+%
+%    \begin{macrocode}
+\newcommand*\brsblfullname{%
+  \brfullname
+  \setbooktitle{IKingdoms}{\BRbooknumberstyle{1}\BRbookof Kingdoms}%
+  \setbooktitle{IIKingdoms}{\BRbooknumberstyle{2}\BRbookof Kingdoms}%
+  \setbooktitle{IIIKingdoms}{\BRbooknumberstyle{3}\BRbookof Kingdoms}%
+  \setbooktitle{IVKingdoms}{\BRbooknumberstyle{4}\BRbookof Kingdoms}%
+  \setbooktitle{Psalm}{Psalm}%
+  \setbooktitle{Psalms}{\BRbookof Psalms}%
+  \setbooktitle{AdditionstoEsther}{Additions to Esther}%
+  \setbooktitle{Ecclesiasticus}{\BRbookof Sirach}%
+  \setbooktitle{EpistleofJeremiah}{Epistle of Jeremiah}%
+  \setbooktitle{AdditionstoDaniel}{Additions to Daniel}%
+  \setbooktitle{PrayerofAzariah}{Prayer of Azariah}%
+  \setbooktitle{SongoftheThreeYoungMen}{Song of the Three Young Men}%
+  \setbooktitle{Susanna}{Susanna}%
+  \setbooktitle{BelandtheDragon}{Bel and the Dragon}%
+  \setbooktitle{IEsdras}{\BRbooknumberstyle{1}\BRbookof Esdras}%
+  \setbooktitle{PrayerofManasseh}{Prayer of Manasseh}%
+  \setbooktitle{PsalmCLI}{Psalm 151}%
+  \setbooktitle{IIIMaccabees}{\BRbooknumberstyle{3}\BRbookof Maccabees}%
+  \setbooktitle{IIEsdras}{\BRbooknumberstyle{2}\BRbookof Esdras}%
+  \setbooktitle{IVMaccabees}{\BRbooknumberstyle{4}\BRbookof Maccabees}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\brsblabbrvname}
+%
+% Define new \cs{brsblabbrvname} macro which adjusts \cs{braltabbrvname}
+% abbreviations to bring them into line with SBL requirements.
+%
+%    \begin{macrocode}
+\newcommand*\brsblabbrvname{%
+  \braltabbrvname
+  \setbooktitle{IKingdoms}{\BRbooknumberstyle{1}Kgdms\BRperiod}%
+  \setbooktitle{IIKingdoms}{\BRbooknumberstyle{2}Kgdms\BRperiod}%
+  \setbooktitle{IIIKingdoms}{\BRbooknumberstyle{3}Kgdms\BRperiod}%
+  \setbooktitle{IVKingdoms}{\BRbooknumberstyle{4}Kgdms\BRperiod}%
+  \setbooktitle{Psalm}{Ps\BRperiod}%
+  \setbooktitle{Psalms}{Pss\BRperiod}%
+  \setbooktitle{Esther}{Esth\BRperiod}%
+  \setbooktitle{Ecclesiastes}{Eccl\BRperiod}%
+  \setbooktitle{SongofSongs}{Song\BRperiod}%
+  \setbooktitle{Tobit}{Tob\BRperiod}%
+  \setbooktitle{Judith}{Jdt\BRperiod}%
+  \setbooktitle{AdditionstoEsther}{Add\BRperiod\ Esth\BRperiod}%
+  \setbooktitle{Wisdom}{Wis\BRperiod}%
+  \setbooktitle{Ecclesiasticus}{Sir\BRperiod}%
+  \setbooktitle{Baruch}{Bar\BRperiod}%
+  \setbooktitle{EpistleofJeremiah}{Ep\BRperiod\ Jer\BRperiod}%
+  \setbooktitle{AdditionstoDaniel}{Add\BRperiod\ Dan\BRperiod}%
+  \setbooktitle{PrayerofAzariah}{Pr\BRperiod\ Azar\BRperiod}%
+  \setbooktitle{SongoftheThreeYoungMen}{Sg\BRperiod\ Three\BRperiod}%
+  \setbooktitle{Susanna}{Sus\BRperiod}%
+  \setbooktitle{BelandtheDragon}{Bel\BRperiod}%
+  \setbooktitle{IMaccabees}{\BRbooknumberstyle{1}Macc\BRperiod}%
+  \setbooktitle{IIMaccabees}{\BRbooknumberstyle{2}Macc\BRperiod}%
+  \setbooktitle{IEsdras}{\BRbooknumberstyle{1}Esd\BRperiod}%
+  \setbooktitle{PrayerofManasseh}{Pr\BRperiod\ Man\BRperiod}%
+  \setbooktitle{PsalmCLI}{Ps\BRperiod\ 151}%
+  \setbooktitle{IIIMaccabees}{\BRbooknumberstyle{3}Macc\BRperiod}%
+  \setbooktitle{IEsdras}{\BRbooknumberstyle{2}Esd\BRperiod}%
+  \setbooktitle{IVMaccabees}{\BRbooknumberstyle{4}Macc\BRperiod}%
+  \setbooktitle{Titus}{Titus}%
+  \setbooktitle{Philemon}{Phlm\BRperiod}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% Define new \texttt{sbl} style for \pkg{bibleref}.
+%
+%    \begin{macrocode}
+\newbiblerefstyle{sbl}{%
+  \biblerefstyle{default}%
+  \brsblabbrvname
+}
+%    \end{macrocode}
+%
+% Load new \texttt{sbl} style.
+%
+%    \begin{macrocode}
+\biblerefstyle{sbl}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\endinput
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
