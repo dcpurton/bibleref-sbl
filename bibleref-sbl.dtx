@@ -23,6 +23,9 @@
   \item[\bibleverse{#1}] {\brsblfullname\bibleverse{#1}}
 }
 
+\setlist[description]{nosep, font=\normalfont, labelwidth=2cm, leftmargin=3cm,
+  topsep=\medskipamount}
+
 \AddToHook{env/macrocode/before}{%
   \addvspace{\medskipamount}}
 
@@ -50,14 +53,56 @@
 %
 % \section{Package Options}
 %
+% \begin{macro}{cant}
+%   \SetKeys[brsbl]{cant}
+%   Use Canticles instead of Song of Songs, e.g.,
+%   \begin{description}
+%     \testbook{Cant}
+%   \end{description}
+% \end{macro}
+%
+% \begin{macro}{eccl}
+%   \SetKeys[brsbl]{eccl}
+%   Use Ecclesiastes instead of Qoheleth, e.g.,\hfill (Default)
+%   \begin{description}
+%     \testbook{Eccl}
+%   \end{description}
+% \end{macro}
+%
+% \begin{macro}{qoh}
+%   \SetKeys[brsbl]{qoh}
+%   Use Qoheleth instead of Ecclesiastes, e.g.,
+%   \begin{description}
+%     \testbook{Qoh}
+%   \end{description}
+% \end{macro}
+%
+% \begin{macro}{song}
+%   \SetKeys[brsbl]{song}
+%   Use Song of Songs instead of Canticles, e.g.,\hfill (Default)
+%   \begin{description}
+%     \testbook{Song}
+%   \end{description}
+% \end{macro}
+%
 % \section{Macros}
+%
+% \begin{macro}{\brsblabbrvname}
+%   The \cs{brsblabbrvname} command activates SBL abbreviations for book
+%   names.
+% \end{macro}
+%
+% \begin{macro}{\brsblfullname}
+%   The \cs{brsblfullname} command activates SBL full names for book
+%   names.
+% \end{macro}
 %
 % \section{Supported Book Names}
 %
 % \subsection{Hebrew Bible/Old Testament}
 %
 % \begin{multicols}{2}
-%   \begin{description}[nosep,font=\normalfont,labelwidth=2cm]
+%   \begin{description}
 %     \testbook{Gen}
 %     \testbook{Exod}
 %     \testbook{Lev}
@@ -108,7 +153,7 @@
 % \subsection{Deuterocanonical Books}
 %
 % \begin{multicols}{2}
-%   \begin{description}[nosep,font=\normalfont,labelwidth=2cm,leftmargin=3cm]
+%   \begin{description}
 %     \testbook{Tob}
 %     \testbook{Jdt}
 %     \testbook{AddEsth}
@@ -135,7 +180,7 @@
 % \subsection{New Testament}
 %
 % \begin{multicols}{2}
-%   \begin{description}[nosep,font=\normalfont,labelwidth=2cm]
+%   \begin{description}
 %     \testbook{Matt}
 %     \testbook{Mark}
 %     \testbook{Luke}
@@ -184,6 +229,21 @@
 \RequirePackage{bibleref}
 %    \end{macrocode}
 %
+% Set up package options.
+%
+%    \begin{macrocode}
+\newif\if@brsbl@cant
+\newif\if@brsbl@qoh
+\DeclareKeys[brsbl]
+  {
+    cant.if    = @brsbl@cant ,
+    eccl.ifnot = @brsbl@qoh  ,
+    qoh.if     = @brsbl@qoh  ,
+    song.ifnot = @brsbl@cant ,
+  }
+\ProcessKeyOptions[brsbl]
+%    \end{macrocode}
+%
 % Add missing SBL Bible books.
 %
 %    \begin{macrocode}
@@ -216,6 +276,8 @@
 \def\br@IVKgdms{\br@IVKingdoms}
 \def\br@Ps{\br@Psalm}
 \def\br@Pss{\br@Psalms}
+\def\br@Qoh{\br@Ecclesiastes}
+\def\br@Cant{\br@SongofSongs}
 \def\br@Tob{\br@Tobit}
 \def\br@AddEsth{\br@AdditionstoEsther}
 \def\br@EpJer{\br@EpistleofJeremiah}
@@ -247,6 +309,10 @@
   \setbooktitle{IVKingdoms}{\BRbooknumberstyle{4}\BRbookof Kingdoms}%
   \setbooktitle{Psalm}{Psalm}%
   \setbooktitle{Psalms}{\BRbookof Psalms}%
+  \setbooktitle{Ecclesiastes}{%
+    \BRbookof\if@brsbl@qoh Qoheleth\else Ecclesiastes\fi}%
+  \setbooktitle{SongofSongs}{%
+    \BRbookof\if@brsbl@cant Canticles\else Song of Songs\fi}%
   \setbooktitle{AdditionstoEsther}{Additions to Esther}%
   \setbooktitle{Ecclesiasticus}{\BRbookof Sirach}%
   \setbooktitle{EpistleofJeremiah}{Epistle of Jeremiah}%
@@ -280,8 +346,10 @@
   \setbooktitle{Psalm}{Ps\BRperiod}%
   \setbooktitle{Psalms}{Pss\BRperiod}%
   \setbooktitle{Esther}{Esth\BRperiod}%
-  \setbooktitle{Ecclesiastes}{Eccl\BRperiod}%
-  \setbooktitle{SongofSongs}{Song\BRperiod}%
+  \setbooktitle{Ecclesiastes}{%
+    \if@brsbl@qoh Qoh\else Eccl\fi\BRperiod}%
+  \setbooktitle{SongofSongs}{%
+    \if@brsbl@cant Cant\else Song\fi\BRperiod}%
   \setbooktitle{Tobit}{Tob\BRperiod}%
   \setbooktitle{Judith}{Jdt\BRperiod}%
   \setbooktitle{AdditionstoEsther}{Add\BRperiod\ Esth\BRperiod}%
