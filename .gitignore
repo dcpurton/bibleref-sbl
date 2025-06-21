@@ -1,5 +1,4 @@
 build
-testfiles
 *.swp
 *.aux
 *.log
