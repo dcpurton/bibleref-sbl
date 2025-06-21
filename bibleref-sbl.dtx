@@ -97,9 +97,19 @@
 %   names.
 % \end{macro}
 %
+% \begin{macro}{\brsbldefaults}
+%   Set SBL default format and delimiters.
+% \end{macro}
+%
+% \begin{macro}{\brsblot, \brsbldb, \brsblnt}
+%   Name of categories for Old Testament, Deuterocanonical books and New
+%   Testament books used in index. They default to `Old Testament/Hebrew
+%   Bible', `Deuterocanonical Books' and `New Testament' respectively.
+% \end{macro}
+%
 % \section{Supported Book Names}
 %
-% \subsection{Hebrew Bible/Old Testament}
+% \subsection{Old Testament/Hebrew Bible}
 %
 % \begin{multicols}{2}
 %   \begin{description}
@@ -297,14 +307,13 @@
 %
 % \begin{macro}{\brsblfullname}
 %
-% Define new \cs{brsblfullname} macro which adjusts \cs{brfullname}
-% book names to bring them into line with SBL requirements.
+%   Define new \cs{brsblfullname} macro which adjusts \cs{brfullname} book
+%   names to bring them into line with SBL requirements.
 %
 %    \begin{macrocode}
 \newcommand*\brsblfullname{%
   \brfullname
-  \renewcommand*{\BRbooknumberstyle}[1]{##1~}%
-  \renewcommand*{\BRepistlenumberstyle}[1]{##1~}%
+  \brsbldefaults
   \setbooktitle{IKingdoms}{\BRbooknumberstyle{1}\BRbookof Kingdoms}%
   \setbooktitle{IIKingdoms}{\BRbooknumberstyle{2}\BRbookof Kingdoms}%
   \setbooktitle{IIIKingdoms}{\BRbooknumberstyle{3}\BRbookof Kingdoms}%
@@ -335,14 +344,13 @@
 %
 % \begin{macro}{\brsblabbrvname}
 %
-% Define new \cs{brsblabbrvname} macro which adjusts \cs{braltabbrvname}
-% abbreviations to bring them into line with SBL requirements.
+%   Define new \cs{brsblabbrvname} macro which adjusts \cs{braltabbrvname}
+%   abbreviations to bring them into line with SBL requirements.
 %
 %    \begin{macrocode}
 \newcommand*\brsblabbrvname{%
   \braltabbrvname
-  \renewcommand*{\BRbooknumberstyle}[1]{##1~}%
-  \renewcommand*{\BRepistlenumberstyle}[1]{##1~}%
+  \brsbldefaults
   \setbooktitle{IKingdoms}{\BRbooknumberstyle{1}Kgdms\BRperiod}%
   \setbooktitle{IIKingdoms}{\BRbooknumberstyle{2}Kgdms\BRperiod}%
   \setbooktitle{IIIKingdoms}{\BRbooknumberstyle{3}Kgdms\BRperiod}%
@@ -377,6 +385,46 @@
   \setbooktitle{Titus}{Titus}%
   \setbooktitle{Philemon}{Phlm\BRperiod}%
 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\brsbldefaults}
+%
+%   Set SBL default format and delimiters.
+%
+%    \begin{macrocode}
+\newcommand*{\brsbldefaults}{%
+  \renewcommand*{\BRbooknumberstyle}[1]{##1~}%
+  \renewcommand*{\BRepistlenumberstyle}[1]{##1~}%
+  \renewcommand*{\BRbookof}{}%
+  \renewcommand*{\BRgospel}{}%
+  \renewcommand*{\BRepistleto}{}%
+  \renewcommand*{\BRepistletothe}{}%
+  \renewcommand*{\BRepistleof}{}%
+  \renewcommand*{\BRbooktitlestyle}[1]{##1}%
+  \renewcommand*{\BRchapterstyle}[1]{##1}%
+  \renewcommand*{\BRotherchapterstyle}[1]{(##1)}%
+  \renewcommand*{\BRversestyle}[1]{##1}%
+  \renewcommand*{\BRversesuffixstyle}[1]{##1}%
+  \renewcommand*{\BRbkchsep}{ }%
+  \renewcommand*{\BRchvsep}{:}%
+  \renewcommand*{\BRchsep}{;}%
+  \renewcommand*{\BRvrsep}{--}%
+  \renewcommand*{\BRvsep}{,}%
+  \renewcommand*{\BRperiod}{}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\brsblot, \brsbldb, \brsblnt}
+%
+%   Name of categories for Old Testament, Deuterocanonical books and New
+%   Testament books used in index.
+%
+%    \begin{macrocode}
+\newcommand*{\brsblot}{Old Testament/Hebrew Bible}
+\newcommand*{\brsbldb}{Deuterocanonical Books}
+\newcommand*{\brsblnt}{New Testament}
 %    \end{macrocode}
 % \end{macro}
 %
