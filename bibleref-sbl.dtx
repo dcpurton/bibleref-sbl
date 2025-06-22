@@ -69,6 +69,16 @@
 %   \end{description}
 % \end{macro}
 %
+% \begin{macro}{englishorder}
+%   Use English order for Old Testament books in index.\hfill (Default)\\
+%   This option sets \cs{brsblot} to `Old Testament/Hebrew Bible'.
+% \end{macro}
+%
+% \begin{macro}{hebreworder}
+%   Use Hebrew order for Old Testament books in index.\\
+%   This option sets \cs{brsblot} to `Hebrew Bible/Old Testament'.
+% \end{macro}
+%
 % \begin{macro}{qoh}
 %   \SetKeys[brsbl]{qoh}
 %   Use Qoheleth instead of Ecclesiastes, e.g.,
@@ -102,12 +112,14 @@
 % \begin{macro}{\brsblot, \brsbldb, \brsblnt}
 %   Name of categories for Old Testament, Deuterocanonical books and New
 %   Testament books used in index. They default to `Old Testament/Hebrew
-%   Bible', `Deuterocanonical Books' and `New Testament' respectively.
+%   Bible', `Deuterocanonical Books' and `New Testament' respectively. If the
+%   option |hebreworder| is set then \cs{brsblot} defaults to `Hebrew
+%   Bible/Old Testament'.
 % \end{macro}
 %
 % \section{Supported Book Names}
 %
-% \subsection{Old Testament/Hebrew Bible}
+% \subsection{\brsblot}
 %
 % \begin{multicols}{2}
 %   \begin{description}
@@ -158,7 +170,7 @@
 %   \end{description}
 % \end{multicols}
 %
-% \subsection{Deuterocanonical Books}
+% \subsection{\brsbldb}
 %
 % \begin{multicols}{2}
 %   \begin{description}
@@ -185,7 +197,7 @@
 %   \end{description}
 %  \end{multicols}
 %
-% \subsection{New Testament}
+% \subsection{\brsblnt}
 %
 % \begin{multicols}{2}
 %   \begin{description}
@@ -241,13 +253,16 @@
 %
 %    \begin{macrocode}
 \newif\if@brsbl@cant
+\newif\if@brsbl@hebreworder
 \newif\if@brsbl@qoh
 \DeclareKeys[brsbl]
   {
-    cant.if    = @brsbl@cant ,
-    eccl.ifnot = @brsbl@qoh  ,
-    qoh.if     = @brsbl@qoh  ,
-    song.ifnot = @brsbl@cant ,
+    cant.if            = @brsbl@cant ,
+    eccl.ifnot         = @brsbl@qoh  ,
+    englishorder.ifnot = @brsbl@hebreworder ,
+    hebreworder.if     = @brsbl@hebreworder ,
+    qoh.if             = @brsbl@qoh  ,
+    song.ifnot         = @brsbl@cant ,
   }
 \ProcessKeyOptions[brsbl]
 %    \end{macrocode}
@@ -420,7 +435,12 @@
 %   Testament books used in index.
 %
 %    \begin{macrocode}
-\newcommand*{\brsblot}{Old Testament/Hebrew Bible}
+\newcommand*{\brsblot}{%
+  \if@brsbl@hebreworder
+    Hebrew Bible/Old Testament%
+  \else
+    Old Testament/Hebrew Bible%
+  \fi}
 \newcommand*{\brsbldb}{Deuterocanonical Books}
 \newcommand*{\brsblnt}{New Testament}
 %    \end{macrocode}
