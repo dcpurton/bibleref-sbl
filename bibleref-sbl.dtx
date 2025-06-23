@@ -29,6 +29,9 @@
 \AddToHook{env/macrocode/before}{%
   \addvspace{\medskipamount}}
 
+\AddToHook{env/macro/before}{%
+  \addvspace{\medskipamount}}
+
 \begin{document}
 \DocInput{\jobname.dtx}
 \end{document}
@@ -131,16 +134,16 @@
 %     \testbook{Josh}
 %     \testbook{Judg}
 %     \testbook{Ruth}
-%     \testbook{ISam}
-%     \testbook{IKgdms}
-%     \testbook{IISam}
-%     \testbook{IIKgdms}
-%     \testbook{IKgs}
-%     \testbook{IIIKgdms}
-%     \testbook{IIKgs}
-%     \testbook{IVKgdms}
-%     \testbook{IChr}
-%     \testbook{IIChr}
+%     \testbook{1Sam}
+%     \testbook{1Kgdms}
+%     \testbook{2Sam}
+%     \testbook{2Kgdms}
+%     \testbook{1Kgs}
+%     \testbook{3Kgdms}
+%     \testbook{2Kgs}
+%     \testbook{4Kgdms}
+%     \testbook{1Chr}
+%     \testbook{2Chr}
 %     \testbook{Ezra}
 %     \testbook{Neh}
 %     \testbook{Esth}
@@ -186,14 +189,14 @@
 %     \testbook{SgThree}
 %     \testbook{Sus}
 %     \testbook{Bel}
-%     \testbook{IMacc}
-%     \testbook{IIMacc}
-%     \testbook{IEsd}
+%     \testbook{1Macc}
+%     \testbook{2Macc}
+%     \testbook{1Esd}
 %     \testbook{PrMan}
-%     \testbook{PsCLI}
-%     \testbook{IIIMacc}
-%     \testbook{IIEsd}
-%     \testbook{IVMacc}
+%     \testbook{Ps151}
+%     \testbook{3Macc}
+%     \testbook{2Esd}
+%     \testbook{4Macc}
 %   \end{description}
 %  \end{multicols}
 %
@@ -207,25 +210,25 @@
 %     \testbook{John}
 %     \testbook{Acts}
 %     \testbook{Rom}
-%     \testbook{ICor}
-%     \testbook{IICor}
+%     \testbook{1Cor}
+%     \testbook{2Cor}
 %     \testbook{Gal}
 %     \testbook{Eph}
 %     \testbook{Phil}
 %     \testbook{Col}
-%     \testbook{IThess}
-%     \testbook{IIThess}
-%     \testbook{ITim}
-%     \testbook{IITim}
+%     \testbook{1Thess}
+%     \testbook{2Thess}
+%     \testbook{1Tim}
+%     \testbook{2Tim}
 %     \testbook{Titus}
 %     \testbook{Phlm}
 %     \testbook{Heb}
 %     \testbook{Jas}
-%     \testbook{IPet}
-%     \testbook{IIPet}
-%     \testbook{IJohn}
-%     \testbook{IIJohn}
-%     \testbook{IIIJohn}
+%     \testbook{1Pet}
+%     \testbook{2Pet}
+%     \testbook{1John}
+%     \testbook{2John}
+%     \testbook{3John}
 %     \testbook{Jude}
 %     \testbook{Rev}
 %   \end{description}
@@ -292,30 +295,84 @@
 %
 % Add missing SBL abbreviations for use in \meta{book title} arguments.
 %
+% \begin{macro}{\brsbl@provideabbrv}\marg{abbrev}\marg{book}
+%
+%   \medskip
+%
+%   Macro to test if a book abbreviation is defined and if not define it.
+%
 %    \begin{macrocode}
-\def\br@IKgdms{\br@IKingdoms}
-\def\br@IIKgdms{\br@IIKingdoms}
-\def\br@IIIKgdms{\br@IIIKingdoms}
-\def\br@IVKgdms{\br@IVKingdoms}
-\def\br@Ps{\br@Psalm}
-\def\br@Pss{\br@Psalms}
-\def\br@Qoh{\br@Ecclesiastes}
-\def\br@Cant{\br@SongofSongs}
-\def\br@Tob{\br@Tobit}
-\def\br@AddEsth{\br@AdditionstoEsther}
-\def\br@EpJer{\br@EpistleofJeremiah}
-\def\br@AddDan{\br@AdditionstoDaniel}
-\def\br@PrAzar{\br@PrayerofAzariah}
-\def\br@SgThree{\br@SongoftheThreeYoungMen}
-\def\br@Sus{\br@Susanna}
-\def\br@Bel{\br@BelandtheDragon}
-\def\br@IEsd{\br@IEsdras}
-\def\br@PrMan{\br@PrayerofManasseh}
-\def\br@PsCLI{\br@PsalmCLI}
-\def\br@IIIMacc{\br@IIIMaccabees}
-\def\br@IIEsd{\br@IIEsdras}
-\def\br@IVMacc{\br@IVMaccabees}
-\def\br@Phlm{\br@Philemon}
+\newcommand*{\brsbl@provideabbrv}[2]{%
+  \@ifundefined{br@#1}{%
+    \expandafter\def\csname br@#1\endcsname{\csname br@#2\endcsname}
+  }{}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\brsbl@setabbrv}\marg{abbrev}\marg{book}
+%
+%   \medskip
+%
+%   Macro to set an abbreviation. Unlike \cs{brsbl@provideabbrv} this macro
+%   overwrites an existing definition.
+%
+%    \begin{macrocode}
+\newcommand*{\brsbl@setabbrv}[2]{%
+  \expandafter\def\csname br@#1\endcsname{\csname br@#2\endcsname}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\brsbl@provideabbrv{1Sam}{ISamuel}
+\brsbl@provideabbrv{1Kgdms}{IKingdoms}
+\brsbl@provideabbrv{2Sam}{IISamuel}
+\brsbl@provideabbrv{2Kgdms}{IIKingdoms}
+\brsbl@provideabbrv{1Kgs}{IKings}
+\brsbl@provideabbrv{3Kgdms}{IIIKingdoms}
+\brsbl@provideabbrv{2Kgs}{IIKings}
+\brsbl@provideabbrv{4Kgdms}{IVKingdoms}
+\brsbl@provideabbrv{1Chr}{IChronicles}
+\brsbl@provideabbrv{2Chr}{IIChronicles}
+\brsbl@setabbrv{Ps}{Psalm}
+\brsbl@provideabbrv{Pss}{Psalms}
+\brsbl@provideabbrv{Qoh}{Ecclesiastes}
+\brsbl@provideabbrv{Cant}{SongofSongs}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\brsbl@provideabbrv{Tob}{Tobit}
+\brsbl@provideabbrv{AddEsth}{AdditionstoEsther}
+\brsbl@provideabbrv{EpJer}{EpistleofJeremiah}
+\brsbl@provideabbrv{AddDan}{AdditionstoDaniel}
+\brsbl@provideabbrv{PrAzar}{PrayerofAzariah}
+\brsbl@provideabbrv{SgThree}{SongoftheThreeYoungMen}
+\brsbl@provideabbrv{Sus}{Susanna}
+\brsbl@provideabbrv{Bel}{BelandtheDragon}
+\brsbl@provideabbrv{1Macc}{IMaccabees}
+\brsbl@provideabbrv{2Macc}{IIMaccabees}
+\brsbl@provideabbrv{1Esd}{IEsdras}
+\brsbl@provideabbrv{PrMan}{PrayerofManasseh}
+\brsbl@provideabbrv{Ps151}{PsalmCLI}
+\brsbl@provideabbrv{3Macc}{IIIMaccabees}
+\brsbl@provideabbrv{2Esd}{IIEsdras}
+\brsbl@provideabbrv{4Macc}{IVMaccabees}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\brsbl@provideabbrv{1Cor}{ICorinthians}
+\brsbl@provideabbrv{2Cor}{IICorinthians}
+\brsbl@provideabbrv{1Thess}{IThessalonians}
+\brsbl@provideabbrv{2Thess}{IIThessalonians}
+\brsbl@provideabbrv{1Tim}{ITimothy}
+\brsbl@provideabbrv{2Tim}{IITimothy}
+\brsbl@provideabbrv{Phlm}{Philemon}
+\brsbl@provideabbrv{1Pet}{IPeter}
+\brsbl@provideabbrv{2Pet}{IIPeter}
+\brsbl@provideabbrv{1John}{IJohn}
+\brsbl@provideabbrv{2John}{IIJohn}
+\brsbl@provideabbrv{3John}{IIIJohn}
 %    \end{macrocode}
 %
 % \begin{macro}{\brsblfullname}
@@ -337,16 +394,16 @@
     \BRbookof\if@brsbl@qoh Qoheleth\else Ecclesiastes\fi}%
   \setbooktitle{SongofSongs}{%
     \BRbookof\if@brsbl@cant Canticles\else Song of Songs\fi}%
-  \setbooktitle{AdditionstoEsther}{Additions to Esther}%
+  \setbooktitle{AdditionstoEsther}{\BRadditionsto Esther}%
   \setbooktitle{Ecclesiasticus}{\BRbookof Sirach}%
   \setbooktitle{EpistleofJeremiah}{Epistle of Jeremiah}%
-  \setbooktitle{AdditionstoDaniel}{Additions to Daniel}%
-  \setbooktitle{PrayerofAzariah}{Prayer of Azariah}%
+  \setbooktitle{AdditionstoDaniel}{\BRadditionsto Daniel}%
+  \setbooktitle{PrayerofAzariah}{\BRprayerof Azariah}%
   \setbooktitle{SongoftheThreeYoungMen}{Song of the Three Young Men}%
   \setbooktitle{Susanna}{Susanna}%
   \setbooktitle{BelandtheDragon}{Bel and the Dragon}%
   \setbooktitle{IEsdras}{\BRbooknumberstyle{1}\BRbookof Esdras}%
-  \setbooktitle{PrayerofManasseh}{Prayer of Manasseh}%
+  \setbooktitle{PrayerofManasseh}{\BRprayerof Manasseh}%
   \setbooktitle{PsalmCLI}{Psalm 151}%
   \setbooktitle{IIIMaccabees}{\BRbooknumberstyle{3}\BRbookof Maccabees}%
   \setbooktitle{IIEsdras}{\BRbooknumberstyle{2}\BRbookof Esdras}%
@@ -364,6 +421,8 @@
 \newcommand*\brsblabbrvname{%
   \braltabbrvname
   \brsbldefaults
+  \renewcommand*{\BRadditionsto}{Add\BRperiod\ }%
+  \renewcommand*{\BRprayerof}{Pr\BRperiod\ }%
   \setbooktitle{IKingdoms}{\BRbooknumberstyle{1}Kgdms\BRperiod}%
   \setbooktitle{IIKingdoms}{\BRbooknumberstyle{2}Kgdms\BRperiod}%
   \setbooktitle{IIIKingdoms}{\BRbooknumberstyle{3}Kgdms\BRperiod}%
@@ -377,23 +436,23 @@
     \if@brsbl@cant Cant\else Song\fi\BRperiod}%
   \setbooktitle{Tobit}{Tob\BRperiod}%
   \setbooktitle{Judith}{Jdt\BRperiod}%
-  \setbooktitle{AdditionstoEsther}{Add\BRperiod\ Esth\BRperiod}%
+  \setbooktitle{AdditionstoEsther}{\BRadditionsto Esth\BRperiod}%
   \setbooktitle{Wisdom}{Wis\BRperiod}%
   \setbooktitle{Ecclesiasticus}{Sir\BRperiod}%
   \setbooktitle{Baruch}{Bar\BRperiod}%
   \setbooktitle{EpistleofJeremiah}{Ep\BRperiod\ Jer\BRperiod}%
-  \setbooktitle{AdditionstoDaniel}{Add\BRperiod\ Dan\BRperiod}%
-  \setbooktitle{PrayerofAzariah}{Pr\BRperiod\ Azar\BRperiod}%
+  \setbooktitle{AdditionstoDaniel}{\BRadditionsto Dan\BRperiod}%
+  \setbooktitle{PrayerofAzariah}{\BRprayerof Azar\BRperiod}%
   \setbooktitle{SongoftheThreeYoungMen}{Sg\BRperiod\ Three\BRperiod}%
   \setbooktitle{Susanna}{Sus\BRperiod}%
   \setbooktitle{BelandtheDragon}{Bel\BRperiod}%
   \setbooktitle{IMaccabees}{\BRbooknumberstyle{1}Macc\BRperiod}%
   \setbooktitle{IIMaccabees}{\BRbooknumberstyle{2}Macc\BRperiod}%
   \setbooktitle{IEsdras}{\BRbooknumberstyle{1}Esd\BRperiod}%
-  \setbooktitle{PrayerofManasseh}{Pr\BRperiod\ Man\BRperiod}%
+  \setbooktitle{PrayerofManasseh}{\BRprayerof Man\BRperiod}%
   \setbooktitle{PsalmCLI}{Ps\BRperiod\ 151}%
   \setbooktitle{IIIMaccabees}{\BRbooknumberstyle{3}Macc\BRperiod}%
-  \setbooktitle{IEsdras}{\BRbooknumberstyle{2}Esd\BRperiod}%
+  \setbooktitle{IIEsdras}{\BRbooknumberstyle{2}Esd\BRperiod}%
   \setbooktitle{IVMaccabees}{\BRbooknumberstyle{4}Macc\BRperiod}%
   \setbooktitle{Titus}{Titus}%
   \setbooktitle{Philemon}{Phlm\BRperiod}%
@@ -406,6 +465,11 @@
 %   Set SBL default format and delimiters.
 %
 %    \begin{macrocode}
+\providecommand{\BRadditionsto}{Additions to }
+\providecommand{\BRprayerof}{Prayer of }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \newcommand*{\brsbldefaults}{%
   \renewcommand*{\BRbooknumberstyle}[1]{##1~}%
   \renewcommand*{\BRepistlenumberstyle}[1]{##1~}%
@@ -414,6 +478,8 @@
   \renewcommand*{\BRepistleto}{}%
   \renewcommand*{\BRepistletothe}{}%
   \renewcommand*{\BRepistleof}{}%
+  \renewcommand*{\BRadditionsto}{Additions to }%
+  \renewcommand*{\BRprayerof}{Prayer of }%
   \renewcommand*{\BRbooktitlestyle}[1]{##1}%
   \renewcommand*{\BRchapterstyle}[1]{##1}%
   \renewcommand*{\BRotherchapterstyle}[1]{(##1)}%
