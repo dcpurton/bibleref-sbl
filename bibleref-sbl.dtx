@@ -252,6 +252,21 @@
 \RequirePackage{bibleref}
 %    \end{macrocode}
 %
+% Patch \cs{@bible@verse} to handle Psalm 151 which requires \cs{BRbkchsep} to
+% be \cs{BRchvsep} in order to print correctly.
+%
+%    \begin{macrocode}
+\patchcmd{\@bible@verse}
+  {\BRbkchsep}
+  {\ifstrequal{#1}{Ps151}
+     {\BRchvsep}
+     {\ifstrequal{#1}{PsalmCLI}
+        {\BRchvsep}
+        {\BRbkchsep}}}
+  {}
+  {}
+%    \end{macrocode}
+%
 % Set up package options.
 %
 %    \begin{macrocode}
