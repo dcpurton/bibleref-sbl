@@ -153,6 +153,12 @@
 %   Bible/Old Testament'.
 % \end{macro}
 %
+% \begin{macro}{\Bibleverse, \iBibleverse}
+%   At the beginning of a sentence the full book name should be used rather
+%   than an abbreviation. \cs{Bibleverse} and \cs{iBibleverse} provide
+%   variants of \cs{bibleverse} and \cs{ibibleverse} to handle this.
+% \end{macro}
+%
 % \section{Supported Book Names}
 %
 % \subsection{\brsblot}
@@ -299,6 +305,32 @@
   {}
   {}
 %    \end{macrocode}
+%
+% \begin{macro}{\Bibleverse, \iBibleverse}
+%
+%   At the beginning of a sentence the full book name should be used rather
+%   than an abbreviation. \cs{Bibleverse} and \cs{iBibleverse} provide
+%   variants of \cs{bibleverse} and \cs{ibibleverse} to handle this.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand*{\Bibleverse}{%
+  \let\@bv@restore\relax
+  \begingroup
+  \brsblfullname
+  \AddToHookNext{cmd/@end@@bibleverse/after}{\endgroup}%
+  \@bible@verse
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\DeclareRobustCommand*{\iBibleverse}[1][\bvidxpgformat]{%
+  \def\@bv@idxpgformat{#1}%
+  \@bv@idxtrue
+  \def\@bv@idxentry{}%
+  \Bibleverse
+}
+%    \end{macrocode}
+% \end{macro}
 %
 % Set up package options.
 %
