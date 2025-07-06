@@ -106,13 +106,31 @@
 % \end{macro}
 %
 % \begin{macro}{englishorder}
-%   Use English order for Old Testament books in index.\hfill\emph{(Default)}\\
-%   This option sets \cs{brsblot} to `Old Testament/Hebrew Bible'.
+%   Use English order for Old Testament books in index.\hfill\emph{(Default)}
+%
+%   \medskip
+%
+%   \noindent This option sets \cs{brsblot} to `Old Testament/Hebrew Bible'.
 % \end{macro}
 %
 % \begin{macro}{hebreworder}
-%   Use Hebrew order for Old Testament books in index.\\
-%   This option sets \cs{brsblot} to `Hebrew Bible/Old Testament'.
+%   Use Hebrew order for Old Testament books in index.
+%
+%   \medskip
+%
+%   \noindent This option sets \cs{brsblot} to `Hebrew Bible/Old Testament'.
+% \end{macro}
+%
+% \begin{macro}{makeindexsorting}
+%   Set up Bible book order sorting for |makeindex|.\hfill\emph{(Default)}
+%
+%   \medskip
+%
+%   \noindent This option sets up sorting for |makeindex| so Bible books sort
+%   in Bible book order rather than alphabetical order. You might set this to
+%   |false| if you are using |xindy| for sorting.
+%
+%   This options must be set at load time.
 % \end{macro}
 %
 % \begin{macro}{qoh}
@@ -338,14 +356,18 @@
 \newif\if@brsbl@cant
 \newif\if@brsbl@hebreworder
 \newif\if@brsbl@qoh
+\newif\if@brsbl@makeindexsorting
+\@brsbl@makeindexsortingtrue
 \DeclareKeys[brsbl]
   {
-    cant.if            = @brsbl@cant ,
-    eccl.ifnot         = @brsbl@qoh  ,
-    englishorder.ifnot = @brsbl@hebreworder ,
-    hebreworder.if     = @brsbl@hebreworder ,
-    qoh.if             = @brsbl@qoh  ,
-    song.ifnot         = @brsbl@cant ,
+    cant.if                = @brsbl@cant ,
+    eccl.ifnot             = @brsbl@qoh  ,
+    englishorder.ifnot     = @brsbl@hebreworder ,
+    hebreworder.if         = @brsbl@hebreworder ,
+    makeindexsorting.if    = @brsbl@makeindexsorting ,
+    makeindexsorting.usage = load ,
+    qoh.if                 = @brsbl@qoh  ,
+    song.ifnot             = @brsbl@cant ,
   }
 \ProcessKeyOptions[brsbl]
 %    \end{macrocode}
@@ -699,184 +721,192 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% Set up index mapping
+% Set up index mapping if the |makeindexsorting| option is set to |true|.
 %
 %    \begin{macrocode}
-\biblerefmap{Genesis}{10@\brsblot !01}
-\biblerefmap{Gen}{10@\brsblot !01}
-\biblerefmap{Exodus}{10@\brsblot !02}
-\biblerefmap{Exod}{10@\brsblot !02}
-\biblerefmap{Leviticus}{10@\brsblot !03}
-\biblerefmap{Lev}{10@\brsblot !03}
-\biblerefmap{Numbers}{10@\brsblot !04}
-\biblerefmap{Num}{10@\brsblot !04}
-\biblerefmap{Deuteronomy}{10@\brsblot !05}
-\biblerefmap{Deut}{10@\brsblot !05}
-\biblerefmap{Joshua}{10@\brsblot !06}
-\biblerefmap{Josh}{10@\brsblot !06}
-\biblerefmap{Judges}{10@\brsblot !07}
-\biblerefmap{Judg}{10@\brsblot !07}
-\biblerefmap{Ruth}{10@\brsblot !08}
-\biblerefmap{Samuel1}{10@\brsblot !09}
-\biblerefmap{Sam1}{10@\brsblot !09}
-\biblerefmap{Kingdoms1}{10@\brsblot !10}
-\biblerefmap{Kgdms1}{10@\brsblot !10}
-\biblerefmap{Samuel2}{10@\brsblot !11}
-\biblerefmap{Sam2}{10@\brsblot !11}
-\biblerefmap{Kingdoms2}{10@\brsblot !12}
-\biblerefmap{Kgdms2}{10@\brsblot !12}
-\biblerefmap{Kings1}{10@\brsblot !13}
-\biblerefmap{Kgs1}{10@\brsblot !13}
-\biblerefmap{Kingdoms3}{10@\brsblot !14}
-\biblerefmap{Kgdms3}{10@\brsblot !14}
-\biblerefmap{Kings2}{10@\brsblot !15}
-\biblerefmap{Kgs2}{10@\brsblot !15}
-\biblerefmap{Kingdoms4}{10@\brsblot !16}
-\biblerefmap{Kgdms4}{10@\brsblot !16}
-\biblerefmap{Chronicles1}{10@\brsblot !17}
-\biblerefmap{Chr1}{10@\brsblot !17}
-\biblerefmap{Chronicles2}{10@\brsblot !18}
-\biblerefmap{Chr2}{10@\brsblot !18}
-\biblerefmap{Ezra}{10@\brsblot !19}
-\biblerefmap{Nehemiah}{10@\brsblot !20}
-\biblerefmap{Neh}{10@\brsblot !20}
-\biblerefmap{Job}{10@\brsblot !21}
-\biblerefmap{Psalm}{10@\brsblot !22}
-\biblerefmap{Ps}{10@\brsblot !22}
-\biblerefmap{Psalms}{10@\brsblot !22}
-\biblerefmap{Pss}{10@\brsblot !22}
-\biblerefmap{Proverbs}{10@\brsblot !23}
-\biblerefmap{Prov}{10@\brsblot !23}
-\biblerefmap{Ecclesiastes}{10@\brsblot !24}
-\biblerefmap{Eccl}{10@\brsblot !24}
-\biblerefmap{Qoheleth}{10@\brsblot !24}
-\biblerefmap{Qoh}{10@\brsblot !24}
-\biblerefmap{Song of Songs}{10@\brsblot !25}
-\biblerefmap{Song}{10@\brsblot !25}
-\biblerefmap{Canticles}{10@\brsblot !25}
-\biblerefmap{Cant}{10@\brsblot !25}
-\biblerefmap{Isaiah}{10@\brsblot !26}
-\biblerefmap{Isa}{10@\brsblot !26}
-\biblerefmap{Jeremiah}{10@\brsblot !27}
-\biblerefmap{Jer}{10@\brsblot !27}
-\biblerefmap{Lamentations}{10@\brsblot !28}
-\biblerefmap{Lam}{10@\brsblot !28}
-\biblerefmap{Ezekiel}{10@\brsblot !29}
-\biblerefmap{Ezek}{10@\brsblot !29}
-\biblerefmap{Daniel}{10@\brsblot !30}
-\biblerefmap{Dan}{10@\brsblot !30}
-\biblerefmap{Hosea}{10@\brsblot !31}
-\biblerefmap{Hos}{10@\brsblot !31}
-\biblerefmap{Joel}{10@\brsblot !32}
-\biblerefmap{Amos}{10@\brsblot !33}
-\biblerefmap{Obadiah}{10@\brsblot !34}
-\biblerefmap{Obad}{10@\brsblot !34}
-\biblerefmap{Jonah}{10@\brsblot !35}
-\biblerefmap{Micah}{10@\brsblot !36}
-\biblerefmap{Mic}{10@\brsblot !36}
-\biblerefmap{Nahum}{10@\brsblot !37}
-\biblerefmap{Nah}{10@\brsblot !37}
-\biblerefmap{Habakkuk}{10@\brsblot !38}
-\biblerefmap{Hab}{10@\brsblot !38}
-\biblerefmap{Zephaniah}{10@\brsblot !39}
-\biblerefmap{Zeph}{10@\brsblot !39}
-\biblerefmap{Haggai}{10@\brsblot !40}
-\biblerefmap{Hag}{10@\brsblot !40}
-\biblerefmap{Zechariah}{10@\brsblot !41}
-\biblerefmap{Zech}{10@\brsblot !41}
-\biblerefmap{Malachi}{10@\brsblot !42}
-\biblerefmap{Mal}{10@\brsblot !42}
+\if@brsbl@makeindexsorting
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\biblerefmap{Tobit}{20@\brsbldb !01}
-\biblerefmap{Tob}{20@\brsbldb !01}
-\biblerefmap{Judith}{20@\brsbldb !02}
-\biblerefmap{Jdt}{20@\brsbldb !02}
-\biblerefmap{Additions to Esther}{20@\brsbldb !03}
-\biblerefmap{Add Esth}{20@\brsbldb !03}
-\biblerefmap{Wisdom}{20@\brsbldb !04}
-\biblerefmap{Wis}{20@\brsbldb !04}
-\biblerefmap{Sirach}{20@\brsbldb !05}
-\biblerefmap{Sir}{20@\brsbldb !05}
-\biblerefmap{Baruch}{20@\brsbldb !06}
-\biblerefmap{Bar}{20@\brsbldb !06}
-\biblerefmap{Epistle of Jeremiah}{20@\brsbldb !07}
-\biblerefmap{Ep Jer}{20@\brsbldb !07}
-\biblerefmap{Additions to Daniel}{20@\brsbldb !08}
-\biblerefmap{Add Dan}{20@\brsbldb !08}
-\biblerefmap{Prayer of Azariah}{20@\brsbldb !09}
-\biblerefmap{Pr Azar}{20@\brsbldb !09}
-\biblerefmap{Song of the Three Young Men}{20@\brsbldb !10}
-\biblerefmap{Sg Three}{20@\brsbldb !10}
-\biblerefmap{Susanna}{20@\brsbldb !11}
-\biblerefmap{Sus}{20@\brsbldb !11}
-\biblerefmap{Bel and the Dragon}{20@\brsbldb !12}
-\biblerefmap{Bel}{20@\brsbldb !12}
-\biblerefmap{Maccabees1}{20@\brsbldb !13}
-\biblerefmap{Macc1}{20@\brsbldb !13}
-\biblerefmap{Maccabees2}{20@\brsbldb !14}
-\biblerefmap{Macc2}{20@\brsbldb !14}
-\biblerefmap{Esdras1}{20@\brsbldb !15}
-\biblerefmap{Esd1}{20@\brsbldb !15}
-\biblerefmap{Prayer of Manasseh}{20@\brsbldb !16}
-\biblerefmap{Pr Man}{20@\brsbldb !16}
-\biblerefmap{Psalm 151}{20@\brsbldb !17}
-\biblerefmap{Ps 151}{20@\brsbldb !17}
-\biblerefmap{Maccabees3}{20@\brsbldb !18}
-\biblerefmap{Macc3}{20@\brsbldb !18}
-\biblerefmap{Esdras2}{20@\brsbldb !19}
-\biblerefmap{Esd2}{20@\brsbldb !19}
-\biblerefmap{Maccabees4}{20@\brsbldb !20}
-\biblerefmap{Macc4}{20@\brsbldb !20}
+  \biblerefmap{Genesis}{10@\brsblot !01}
+  \biblerefmap{Gen}{10@\brsblot !01}
+  \biblerefmap{Exodus}{10@\brsblot !02}
+  \biblerefmap{Exod}{10@\brsblot !02}
+  \biblerefmap{Leviticus}{10@\brsblot !03}
+  \biblerefmap{Lev}{10@\brsblot !03}
+  \biblerefmap{Numbers}{10@\brsblot !04}
+  \biblerefmap{Num}{10@\brsblot !04}
+  \biblerefmap{Deuteronomy}{10@\brsblot !05}
+  \biblerefmap{Deut}{10@\brsblot !05}
+  \biblerefmap{Joshua}{10@\brsblot !06}
+  \biblerefmap{Josh}{10@\brsblot !06}
+  \biblerefmap{Judges}{10@\brsblot !07}
+  \biblerefmap{Judg}{10@\brsblot !07}
+  \biblerefmap{Ruth}{10@\brsblot !08}
+  \biblerefmap{Samuel1}{10@\brsblot !09}
+  \biblerefmap{Sam1}{10@\brsblot !09}
+  \biblerefmap{Kingdoms1}{10@\brsblot !10}
+  \biblerefmap{Kgdms1}{10@\brsblot !10}
+  \biblerefmap{Samuel2}{10@\brsblot !11}
+  \biblerefmap{Sam2}{10@\brsblot !11}
+  \biblerefmap{Kingdoms2}{10@\brsblot !12}
+  \biblerefmap{Kgdms2}{10@\brsblot !12}
+  \biblerefmap{Kings1}{10@\brsblot !13}
+  \biblerefmap{Kgs1}{10@\brsblot !13}
+  \biblerefmap{Kingdoms3}{10@\brsblot !14}
+  \biblerefmap{Kgdms3}{10@\brsblot !14}
+  \biblerefmap{Kings2}{10@\brsblot !15}
+  \biblerefmap{Kgs2}{10@\brsblot !15}
+  \biblerefmap{Kingdoms4}{10@\brsblot !16}
+  \biblerefmap{Kgdms4}{10@\brsblot !16}
+  \biblerefmap{Chronicles1}{10@\brsblot !17}
+  \biblerefmap{Chr1}{10@\brsblot !17}
+  \biblerefmap{Chronicles2}{10@\brsblot !18}
+  \biblerefmap{Chr2}{10@\brsblot !18}
+  \biblerefmap{Ezra}{10@\brsblot !19}
+  \biblerefmap{Nehemiah}{10@\brsblot !20}
+  \biblerefmap{Neh}{10@\brsblot !20}
+  \biblerefmap{Job}{10@\brsblot !21}
+  \biblerefmap{Psalm}{10@\brsblot !22}
+  \biblerefmap{Ps}{10@\brsblot !22}
+  \biblerefmap{Psalms}{10@\brsblot !22}
+  \biblerefmap{Pss}{10@\brsblot !22}
+  \biblerefmap{Proverbs}{10@\brsblot !23}
+  \biblerefmap{Prov}{10@\brsblot !23}
+  \biblerefmap{Ecclesiastes}{10@\brsblot !24}
+  \biblerefmap{Eccl}{10@\brsblot !24}
+  \biblerefmap{Qoheleth}{10@\brsblot !24}
+  \biblerefmap{Qoh}{10@\brsblot !24}
+  \biblerefmap{Song of Songs}{10@\brsblot !25}
+  \biblerefmap{Song}{10@\brsblot !25}
+  \biblerefmap{Canticles}{10@\brsblot !25}
+  \biblerefmap{Cant}{10@\brsblot !25}
+  \biblerefmap{Isaiah}{10@\brsblot !26}
+  \biblerefmap{Isa}{10@\brsblot !26}
+  \biblerefmap{Jeremiah}{10@\brsblot !27}
+  \biblerefmap{Jer}{10@\brsblot !27}
+  \biblerefmap{Lamentations}{10@\brsblot !28}
+  \biblerefmap{Lam}{10@\brsblot !28}
+  \biblerefmap{Ezekiel}{10@\brsblot !29}
+  \biblerefmap{Ezek}{10@\brsblot !29}
+  \biblerefmap{Daniel}{10@\brsblot !30}
+  \biblerefmap{Dan}{10@\brsblot !30}
+  \biblerefmap{Hosea}{10@\brsblot !31}
+  \biblerefmap{Hos}{10@\brsblot !31}
+  \biblerefmap{Joel}{10@\brsblot !32}
+  \biblerefmap{Amos}{10@\brsblot !33}
+  \biblerefmap{Obadiah}{10@\brsblot !34}
+  \biblerefmap{Obad}{10@\brsblot !34}
+  \biblerefmap{Jonah}{10@\brsblot !35}
+  \biblerefmap{Micah}{10@\brsblot !36}
+  \biblerefmap{Mic}{10@\brsblot !36}
+  \biblerefmap{Nahum}{10@\brsblot !37}
+  \biblerefmap{Nah}{10@\brsblot !37}
+  \biblerefmap{Habakkuk}{10@\brsblot !38}
+  \biblerefmap{Hab}{10@\brsblot !38}
+  \biblerefmap{Zephaniah}{10@\brsblot !39}
+  \biblerefmap{Zeph}{10@\brsblot !39}
+  \biblerefmap{Haggai}{10@\brsblot !40}
+  \biblerefmap{Hag}{10@\brsblot !40}
+  \biblerefmap{Zechariah}{10@\brsblot !41}
+  \biblerefmap{Zech}{10@\brsblot !41}
+  \biblerefmap{Malachi}{10@\brsblot !42}
+  \biblerefmap{Mal}{10@\brsblot !42}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\biblerefmap{Matthew}{30@\brsblnt !01}
-\biblerefmap{Matt}{30@\brsblnt !01}
-\biblerefmap{Mark}{30@\brsblnt !02}
-\biblerefmap{Luke}{30@\brsblnt !03}
-\biblerefmap{John}{30@\brsblnt !04}
-\biblerefmap{Acts}{30@\brsblnt !05}
-\biblerefmap{Romans}{30@\brsblnt !06}
-\biblerefmap{Rom}{30@\brsblnt !06}
-\biblerefmap{Corinthians1}{30@\brsblnt !07}
-\biblerefmap{Cor1}{30@\brsblnt !07}
-\biblerefmap{Corinthians2}{30@\brsblnt !08}
-\biblerefmap{Cor2}{30@\brsblnt !08}
-\biblerefmap{Galatians}{30@\brsblnt !09}
-\biblerefmap{Gal}{30@\brsblnt !09}
-\biblerefmap{Ephesians}{30@\brsblnt !10}
-\biblerefmap{Eph}{30@\brsblnt !10}
-\biblerefmap{Philippians}{30@\brsblnt !11}
-\biblerefmap{Phil}{30@\brsblnt !11}
-\biblerefmap{Colossians}{30@\brsblnt !12}
-\biblerefmap{Col}{30@\brsblnt !12}
-\biblerefmap{Thessalonians1}{30@\brsblnt !13}
-\biblerefmap{Thess1}{30@\brsblnt !13}
-\biblerefmap{Thessalonians2}{30@\brsblnt !14}
-\biblerefmap{Thess2}{30@\brsblnt !14}
-\biblerefmap{Timothy1}{30@\brsblnt !15}
-\biblerefmap{Tim1}{30@\brsblnt !15}
-\biblerefmap{Timothy2}{30@\brsblnt !16}
-\biblerefmap{Tim2}{30@\brsblnt !16}
-\biblerefmap{Titus}{30@\brsblnt !17}
-\biblerefmap{Philemon}{30@\brsblnt !18}
-\biblerefmap{Phlm}{30@\brsblnt !18}
-\biblerefmap{Hebrews}{30@\brsblnt !19}
-\biblerefmap{Heb}{30@\brsblnt !19}
-\biblerefmap{James}{30@\brsblnt !20}
-\biblerefmap{Jas}{30@\brsblnt !20}
-\biblerefmap{Peter1}{30@\brsblnt !21}
-\biblerefmap{Pet1}{30@\brsblnt !21}
-\biblerefmap{Peter2}{30@\brsblnt !22}
-\biblerefmap{Pet2}{30@\brsblnt !22}
-\biblerefmap{John1}{30@\brsblnt !23}
-\biblerefmap{John2}{30@\brsblnt !24}
-\biblerefmap{John3}{30@\brsblnt !25}
-\biblerefmap{Jude}{30@\brsblnt !26}
-\biblerefmap{Revelation}{30@\brsblnt !27}
-\biblerefmap{Rev}{30@\brsblnt !27}
+  \biblerefmap{Tobit}{20@\brsbldb !01}
+  \biblerefmap{Tob}{20@\brsbldb !01}
+  \biblerefmap{Judith}{20@\brsbldb !02}
+  \biblerefmap{Jdt}{20@\brsbldb !02}
+  \biblerefmap{Additions to Esther}{20@\brsbldb !03}
+  \biblerefmap{Add Esth}{20@\brsbldb !03}
+  \biblerefmap{Wisdom}{20@\brsbldb !04}
+  \biblerefmap{Wis}{20@\brsbldb !04}
+  \biblerefmap{Sirach}{20@\brsbldb !05}
+  \biblerefmap{Sir}{20@\brsbldb !05}
+  \biblerefmap{Baruch}{20@\brsbldb !06}
+  \biblerefmap{Bar}{20@\brsbldb !06}
+  \biblerefmap{Epistle of Jeremiah}{20@\brsbldb !07}
+  \biblerefmap{Ep Jer}{20@\brsbldb !07}
+  \biblerefmap{Additions to Daniel}{20@\brsbldb !08}
+  \biblerefmap{Add Dan}{20@\brsbldb !08}
+  \biblerefmap{Prayer of Azariah}{20@\brsbldb !09}
+  \biblerefmap{Pr Azar}{20@\brsbldb !09}
+  \biblerefmap{Song of the Three Young Men}{20@\brsbldb !10}
+  \biblerefmap{Sg Three}{20@\brsbldb !10}
+  \biblerefmap{Susanna}{20@\brsbldb !11}
+  \biblerefmap{Sus}{20@\brsbldb !11}
+  \biblerefmap{Bel and the Dragon}{20@\brsbldb !12}
+  \biblerefmap{Bel}{20@\brsbldb !12}
+  \biblerefmap{Maccabees1}{20@\brsbldb !13}
+  \biblerefmap{Macc1}{20@\brsbldb !13}
+  \biblerefmap{Maccabees2}{20@\brsbldb !14}
+  \biblerefmap{Macc2}{20@\brsbldb !14}
+  \biblerefmap{Esdras1}{20@\brsbldb !15}
+  \biblerefmap{Esd1}{20@\brsbldb !15}
+  \biblerefmap{Prayer of Manasseh}{20@\brsbldb !16}
+  \biblerefmap{Pr Man}{20@\brsbldb !16}
+  \biblerefmap{Psalm 151}{20@\brsbldb !17}
+  \biblerefmap{Ps 151}{20@\brsbldb !17}
+  \biblerefmap{Maccabees3}{20@\brsbldb !18}
+  \biblerefmap{Macc3}{20@\brsbldb !18}
+  \biblerefmap{Esdras2}{20@\brsbldb !19}
+  \biblerefmap{Esd2}{20@\brsbldb !19}
+  \biblerefmap{Maccabees4}{20@\brsbldb !20}
+  \biblerefmap{Macc4}{20@\brsbldb !20}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+  \biblerefmap{Matthew}{30@\brsblnt !01}
+  \biblerefmap{Matt}{30@\brsblnt !01}
+  \biblerefmap{Mark}{30@\brsblnt !02}
+  \biblerefmap{Luke}{30@\brsblnt !03}
+  \biblerefmap{John}{30@\brsblnt !04}
+  \biblerefmap{Acts}{30@\brsblnt !05}
+  \biblerefmap{Romans}{30@\brsblnt !06}
+  \biblerefmap{Rom}{30@\brsblnt !06}
+  \biblerefmap{Corinthians1}{30@\brsblnt !07}
+  \biblerefmap{Cor1}{30@\brsblnt !07}
+  \biblerefmap{Corinthians2}{30@\brsblnt !08}
+  \biblerefmap{Cor2}{30@\brsblnt !08}
+  \biblerefmap{Galatians}{30@\brsblnt !09}
+  \biblerefmap{Gal}{30@\brsblnt !09}
+  \biblerefmap{Ephesians}{30@\brsblnt !10}
+  \biblerefmap{Eph}{30@\brsblnt !10}
+  \biblerefmap{Philippians}{30@\brsblnt !11}
+  \biblerefmap{Phil}{30@\brsblnt !11}
+  \biblerefmap{Colossians}{30@\brsblnt !12}
+  \biblerefmap{Col}{30@\brsblnt !12}
+  \biblerefmap{Thessalonians1}{30@\brsblnt !13}
+  \biblerefmap{Thess1}{30@\brsblnt !13}
+  \biblerefmap{Thessalonians2}{30@\brsblnt !14}
+  \biblerefmap{Thess2}{30@\brsblnt !14}
+  \biblerefmap{Timothy1}{30@\brsblnt !15}
+  \biblerefmap{Tim1}{30@\brsblnt !15}
+  \biblerefmap{Timothy2}{30@\brsblnt !16}
+  \biblerefmap{Tim2}{30@\brsblnt !16}
+  \biblerefmap{Titus}{30@\brsblnt !17}
+  \biblerefmap{Philemon}{30@\brsblnt !18}
+  \biblerefmap{Phlm}{30@\brsblnt !18}
+  \biblerefmap{Hebrews}{30@\brsblnt !19}
+  \biblerefmap{Heb}{30@\brsblnt !19}
+  \biblerefmap{James}{30@\brsblnt !20}
+  \biblerefmap{Jas}{30@\brsblnt !20}
+  \biblerefmap{Peter1}{30@\brsblnt !21}
+  \biblerefmap{Pet1}{30@\brsblnt !21}
+  \biblerefmap{Peter2}{30@\brsblnt !22}
+  \biblerefmap{Pet2}{30@\brsblnt !22}
+  \biblerefmap{John1}{30@\brsblnt !23}
+  \biblerefmap{John2}{30@\brsblnt !24}
+  \biblerefmap{John3}{30@\brsblnt !25}
+  \biblerefmap{Jude}{30@\brsblnt !26}
+  \biblerefmap{Revelation}{30@\brsblnt !27}
+  \biblerefmap{Rev}{30@\brsblnt !27}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\fi
 %    \end{macrocode}
 %
 % Define new \texttt{sbl} style for \pkg{bibleref}.
