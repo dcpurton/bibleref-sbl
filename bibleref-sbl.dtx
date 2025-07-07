@@ -18,6 +18,8 @@
 \usepackage{multicol}
 \usepackage{enumitem}
 \usepackage[font=small, skip=6pt]{caption}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
 \usepackage{bibleref-sbl}
 
 \newcommand{\testbook}[1]{%
@@ -290,6 +292,111 @@
 %     \testbook{Rev}
 %   \end{description}
 % \end{multicols}
+%
+% \section{Indexing}
+%
+% By default books will sort in Bible book order with |makeindex|. This can be
+% disabled by passing |makeindexsorting=false| to the \pkg{bibleref-sbl}
+% package at load time.
+%
+% Sorting is set up using the \cs{biblerefmap} command and using a following
+% format:
+%
+% \begin{center}
+%   \verb+\biblerefmap{+\meta{book name}\verb+}{+\meta{category
+%   order}\texttt{@}\meta{category text}\texttt{!}\meta{book order}\verb+}+
+% \end{center}
+% where
+% \begin{center}
+%   \begin{tabular}{rcc}
+%     & \meta{category order} & \meta{category text} \\
+%     Old Testament/Hebrew Bible & 10 & \cs{brsblot} \\
+%     Deuterocanonical Books & 20 & \cs{brsbldb} \\
+%     New Testament & 30 & \cs{brsblnt} \\
+%   \end{tabular}
+% \end{center}
+% So, for Genesis:
+% \begin{center}
+%   |\biblerefmap{Gen}{10@\brsblot !01}|
+% \end{center}
+% And Revelation:
+% \begin{center}
+%   |\biblerefmap{Rev}{30@\brsblnt !27}|
+% \end{center}
+% This allows other common categories like \emph{Ancient Near Eastern Texts}
+% or \emph{Dead Sea Scrolls} to be inserted in between in an Index of Ancient
+% Sources using other values for \meta{category order} values.
+%
+% A simple index could be implemented as shown in Figure
+% \ref{exampleindexsource}. The output is in Figure \ref{exampleindexoutput}.
+% In this example a custom \texttt{ist} file is used to use |\quad\hfill| as
+% the delimeter between the reference and the page number rather than the
+% default comma. A separate index file is set up for \texttt{makeindex} and
+% configured for \pkg{bibleref} by redefining the \cs{biblerefindex} command.
+%
+% Note that SBL requires page numbers to be compressed and references in
+% footnotes to be indicated with n.\ and nn. Automating this requires a
+% significant amount of complex code. See the \pkg{sblidx} package for a full
+% SBL index implementation.
+%
+% \begin{figure}
+%   \begin{Verbatim}[gobble=6]
+%     \documentclass{article}
+%     \begin{filecontents}[overwrite]{\jobname.ist}
+%     delim_2 "\\quad\\hfill"
+%     \end{filecontents}
+%     \usepackage{imakeidx}
+%     \usepackage[font=small, itemlayout=relhang, subindent=0pt,
+%       columns=1, subsubindent=0.25in, hangindent=0.25in,
+%       initsep=0pt plus 2pt]{idxlayout}
+%     \makeindex[name=\jobname-ancient-sources,
+%       title=Ancient Souces Index, options=-s \jobname.ist -q]
+%     \usepackage{bibleref-sbl}
+%     \renewcommand{\biblerefindex}{\index[\jobname-ancient-sources]}
+%     \newcommand*{\idxn}[2]{#2 n.~#1}
+%     \newcommand*{\idxnn}[2]{#2 nn.~#1}
+%     \begin{document}
+%     \setcounter{page}{30}
+%     \ibibleverse{Gen}(22:20-22)
+%     \clearpage
+%     \setcounter{page}{47}
+%     \ibibleverse[idxnn{15--16}]{Gen}(22:20-22)
+%     \clearpage
+%     \setcounter{page}{57}
+%     \ibibleverse[idxnn{8--9 and 12}]{Exod}(2:3)
+%     \clearpage
+%     \setcounter{page}{63}
+%     \ibibleverse{Exod}(2:3)
+%     \clearpage
+%     \setcounter{page}{70}
+%     \ibibleverse{Gen}(1:2)
+%     \clearpage
+%     \setcounter{page}{113}
+%     \ibibleverse[(]{Gen}(1:7)
+%     \clearpage
+%     \setcounter{page}{115}
+%     \ibibleverse[)]{Gen}(1:7)
+%     \clearpage
+%     \setcounter{page}{173}
+%     \ibibleverse{Gen}(1:2)
+%     \clearpage
+%     \setcounter{page}{204}
+%     \ibibleverse[idxn{3}]{Gen}(1:2)
+%     \clearpage
+%     \printindex[\jobname-ancient-sources]
+%     \thispagestyle{empty}
+%     \end{document}
+%   \end{Verbatim}
+%   \caption{Example Ancient Sources Index \TeX\ Source}
+%   \label{exampleindexsource}
+% \end{figure}
+%
+% \begin{figure}
+%   \centering
+%   \includegraphics{example-ancient-sources-index.pdf}
+%   \caption{Example Ancient Sources Index Output}
+%   \label{exampleindexoutput}
+% \end{figure}
 %
 % \section{Implementation}
 %
