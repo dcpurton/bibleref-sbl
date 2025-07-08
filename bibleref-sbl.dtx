@@ -19,7 +19,8 @@
 \usepackage{enumitem}
 \usepackage[font=small, skip=6pt]{caption}
 \usepackage{graphicx}
-\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{listings}
 \usepackage{bibleref-sbl}
 
 \newcommand{\testbook}[1]{%
@@ -345,61 +346,73 @@
 % significant amount of complex code. See the \pkg{sblidx} package for a full
 % SBL index implementation.
 %
-% \begin{figure}
-%   \begin{Verbatim}[gobble=6]
-%     \documentclass{article}
-%     \begin{filecontents}[overwrite]{\jobname.ist}
-%     delim_2 "\\quad\\hfill"
-%     \end{filecontents}
-%     \usepackage{imakeidx}
-%     \usepackage[font=small, itemlayout=relhang, subindent=0pt,
-%       columns=1, subsubindent=0.25in, hangindent=0.25in,
-%       initsep=0pt plus 2pt]{idxlayout}
-%     \makeindex[name=\jobname-ancient-sources,
-%       title=Ancient Souces Index, options=-s \jobname.ist -q]
-%     \usepackage{bibleref-sbl}
-%     \renewcommand{\biblerefindex}{\index[\jobname-ancient-sources]}
-%     \newcommand*{\idxn}[2]{#2 n.~#1}
-%     \newcommand*{\idxnn}[2]{#2 nn.~#1}
-%     \begin{document}
-%     \setcounter{page}{30}
-%     \ibibleverse{Gen}(22:20-22)
-%     \clearpage
-%     \setcounter{page}{47}
-%     \ibibleverse[idxnn{15--16}]{Gen}(22:20-22)
-%     \clearpage
-%     \setcounter{page}{57}
-%     \ibibleverse[idxnn{8--9 and 12}]{Exod}(2:3)
-%     \clearpage
-%     \setcounter{page}{63}
-%     \ibibleverse{Exod}(2:3)
-%     \clearpage
-%     \setcounter{page}{70}
-%     \ibibleverse{Gen}(1:2)
-%     \clearpage
-%     \setcounter{page}{113}
-%     \ibibleverse[(]{Gen}(1:7)
-%     \clearpage
-%     \setcounter{page}{115}
-%     \ibibleverse[)]{Gen}(1:7)
-%     \clearpage
-%     \setcounter{page}{173}
-%     \ibibleverse{Gen}(1:2)
-%     \clearpage
-%     \setcounter{page}{204}
-%     \ibibleverse[idxn{3}]{Gen}(1:2)
-%     \clearpage
-%     \printindex[\jobname-ancient-sources]
-%     \thispagestyle{empty}
-%     \end{document}
-%   \end{Verbatim}
+% \lstset{
+%   language={[LaTeX]TeX},
+%   morekeywords={\biblerefindex, \idxn, \idxnn, \printindex, \ibibleverse},
+%   basicstyle=\small\ttfamily,
+%   keywordstyle=\color{blue!70!black},
+%   frame=single,
+%   tabsize=2,
+% }
+%
+% \begin{figure}[b!]
+% \iffalse
+%<*example>
+% \fi
+    \begin{lstlisting}
+\documentclass{article}
+\begin{filecontents}[overwrite]{\jobname.ist}
+delim_2 "\\quad\\hfill"
+\end{filecontents}
+
+\usepackage{imakeidx}
+\usepackage[font=small, itemlayout=relhang, subindent=0pt,
+  columns=1, subsubindent=0.25in, hangindent=0.25in,
+  initsep=0pt plus 2pt]{idxlayout}
+\makeindex[name=\jobname-ancient-sources,
+  title=Ancient Souces Index, options=-s \jobname.ist -q]
+
+\usepackage{bibleref-sbl}
+\renewcommand{\biblerefindex}{%
+  \index[\jobname-ancient-sources]}
+
+\newcommand*{\idxn}[2]{#2 n.~#1}
+\newcommand*{\idxnn}[2]{#2 nn.~#1}
+
+\begin{document}
+\setcounter{page}{30}\ibibleverse{Gen}(22:20-22)
+\clearpage
+\setcounter{page}{47}
+\ibibleverse[idxnn{15--16}]{Gen}(22:20-22)
+\clearpage
+\setcounter{page}{57}
+\ibibleverse[idxnn{8--9 and 12}]{Exod}(2:3)
+\clearpage
+\setcounter{page}{63}\ibibleverse{Exod}(2:3)
+\clearpage
+\setcounter{page}{70}\ibibleverse{Gen}(1:2)
+\clearpage
+\setcounter{page}{113}\ibibleverse[(]{Gen}(1:7)
+\clearpage
+\setcounter{page}{115}\ibibleverse[)]{Gen}(1:7)
+\clearpage
+\setcounter{page}{173}\ibibleverse{Gen}(1:2)
+\clearpage
+\setcounter{page}{204}\ibibleverse[idxn{3}]{Gen}(1:2)
+\clearpage
+\printindex[\jobname-ancient-sources]
+\end{document}
+    \end{lstlisting}
+% \iffalse
+%</example>
+% \fi
 %   \caption{Example Ancient Sources Index \TeX\ Source}
 %   \label{exampleindexsource}
 % \end{figure}
 %
 % \begin{figure}
 %   \centering
-%   \includegraphics{example-ancient-sources-index.pdf}
+%   \fbox{\includegraphics{example-ancient-sources-index.pdf}}
 %   \caption{Example Ancient Sources Index Output}
 %   \label{exampleindexoutput}
 % \end{figure}
