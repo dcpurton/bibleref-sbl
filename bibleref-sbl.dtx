@@ -179,6 +179,12 @@
 %   variants of \cs{bibleverse} and \cs{ibibleverse} to handle this.
 % \end{macro}
 %
+% \begin{macro}{\pBibleverse, \piBibleverse}
+%   If \pkg{bibleref-parse} is loaded define \cs{pBibleverse} and
+%   \cs{piBibleverse} which use \cs{Bibleverse} and \cs{iBibleverse}
+%   respectively.
+% \end{macro}
+%
 % \section{Supported Book Names}
 %
 % \subsection{\brsblot}
@@ -453,6 +459,30 @@
   \@bv@idxtrue
   \def\@bv@idxentry{}%
   \Bibleverse
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pBibleverse, \piBibleverse}
+%
+%   If \pkg{bibleref-parse} is loaded define \cs{pBibleverse} and
+%   \cs{piBibleverse} which use \cs{Bibleverse} and \cs{iBibleverse}
+%   respectively.
+%
+%    \begin{macrocode}
+\AtEndPreamble{
+  \@ifpackageloaded{bibleref-parse}
+    {\newcommand{\pBibleverse}[2][]{%
+       \brp@parse[#1]{#2}%
+       \brp@convert
+       \let\brp@do\Bibleverse
+       \brp@brlist}
+     \newcommand{\piBibleverse}[2][]{%
+       \brp@parse[#1]{#2}%
+       \brp@convert
+       \let\brp@do\iBibleverse
+       \brp@brlist}}
+    {}
 }
 %    \end{macrocode}
 % \end{macro}
